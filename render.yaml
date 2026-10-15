@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: profileforge
+    env: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /healthz
+    envVars:
+      - key: PORT
+        value: 10000
+      - key: ENVIRONMENT
+        value: production
+      - key: EXTRACTOR_TYPE
+        sync: false
+      - key: API_KEYS
+        sync: false
+      - key: LINKEDIN_LI_AT
+        sync: false
+      - key: LINKEDIN_JSESSIONID
+        sync: false
+      - key: LINKEDIN_USER_AGENT
+        value: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36"
+      - key: LINKEDIN_PROXY_URL
+        sync: false
+      - key: MAX_CONCURRENT_EXTRACTIONS
+        value: 2
+      - key: CACHE_TTL_SECONDS
+        value: 3600
+      - key: UPSTREAM_TIMEOUT_SECONDS
+        value: 30
+      - key: RATE_LIMIT_REQUESTS
+        value: 60
+      - key: RATE_LIMIT_WINDOW_SECONDS
+        value: 60
