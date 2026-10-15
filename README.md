@@ -1,4 +1,4 @@
-# ProfileForge — Browserless LinkedIn Profile Lookup API
+# ProfileForge - Browserless LinkedIn Profile Lookup API
 
 [![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen.svg)]()
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)]()
