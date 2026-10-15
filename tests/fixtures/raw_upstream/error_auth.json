@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "error": {
+    "type": "upstreamAuthFailed",
+    "message": "The LinkedIn session cookie is invalid or expired."
+  }
+}
