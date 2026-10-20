@@ -11,13 +11,13 @@
 
 | Phase | Description | Key Deliverables | Status |
 | :--- | :--- | :--- | :--- |
-| **Phase 0** | Baseline Audit & Research | `AUDIT.md`, `MIGRATION_PLAN.md`, `docs/reverse-engineering-notes.md` | ✅ **DONE** |
+| **Phase 0** | Baseline Audit & Research | `docs/reverse-engineering-notes.md` | ✅ **DONE** |
 | **Phase 1** | Security Remediation | Removed `/v1/config/*`, fixed trust domain conflation in `app/auth.py`, secured CORS, cleaned `.env` | ✅ **DONE** |
 | **Phase 2** | Reverse-Engineering Documentation | `docs/reverse-engineering-notes.md`, `docs/extraction-field-map.md`, `docs/provider-sequence.md` | ✅ **DONE** |
 | **Phase 3** | Direct LinkedIn Provider | `app/providers/linkedin/` (`client.py`, `parser.py`, `resolver.py`, `normalizer.py`), `app/extractor/linkedin_direct.py` | ✅ **DONE** |
 | **Phase 4** | Core Service Decoupling | Decoupled `ProfileService` & `MockExtractor` from legacy LinkedAPI code | ✅ **DONE** |
 | **Phase 5** | Test Suite Migration | 88 offline tests across `tests/unit/`, `tests/contract/`, `tests/security/test_endpoint_auth.py`, offline fixtures (88% cov) | ✅ **DONE** |
-| **Phase 6** | Documentation & Quality Gates | `README.md`, `ARCHITECTURE.md`, `DECISIONS.md`, `REQUIREMENTS.md`, `DEPLOYMENT.md`, `TEST_REPORT.md` | ✅ **DONE** |
+| **Phase 6** | Documentation & Quality Gates | `README.md`, `ARCHITECTURE.md`, `DEPLOYMENT.md`, `TEST_REPORT.md` | ✅ **DONE** |
 | **Phase 7** | OpenAPI & Auth DX Verification | Configured `ProfileForgeApiKey` scheme, explicit 401 error docs, empty frontend key field, strict client validation | ✅ **DONE** |
 
 ---

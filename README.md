@@ -1,10 +1,11 @@
 # ProfileForge - Browserless LinkedIn Profile Lookup API
 
+[![CI Pipeline](https://github.com/shreyachopra03-ux/Profileforge/actions/workflows/ci.yml/badge.svg)](https://github.com/shreyachopra03-ux/Profileforge/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen.svg)]()
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-green.svg)]()
 
-> High-reliability, browserless direct HTTP Profile Lookup API engineered for the **Tross Software Engineer Hiring Challenge**.
+> High-reliability, browserless direct HTTP Profile Lookup API that returns normalized, structured JSON for public LinkedIn profiles.
 
 ---
 
@@ -23,14 +24,18 @@ It features:
 
 ## 2. Deployment & Playground
 
-The service is deployment-ready for Render or any Docker-compatible host. After
-deployment, verify the host before submitting it and add the real URL here:
+The service is deployed on Render as a Docker web service from `render.yaml`:
 
-- **Public HTTPS Base URL**: `https://profileforge-ysbd.onrender.com`
-- **Interactive Web UI**: `https://profileforge-ysbd.onrender.com/` (pre-configured with evaluator key)
-- **Interactive OpenAPI Documentation**: `https://profileforge-ysbd.onrender.com/docs`
-- **Health Check**: `https://profileforge-ysbd.onrender.com/healthz`
+- **Public HTTPS Base URL**: `https://profileforge-lg2f.onrender.com`
+- **Interactive Web UI**: `https://profileforge-lg2f.onrender.com/` (pre-configured with evaluator key)
+- **Interactive OpenAPI Documentation**: `https://profileforge-lg2f.onrender.com/docs`
+- **Health Check**: `https://profileforge-lg2f.onrender.com/healthz`
 - **Evaluator API Key**: `pf-eval-key-2026`
+
+The hosted demo runs with `EXTRACTOR_TYPE=mock`, so responses are deterministic
+fixture data and report `"source": "mock"`. It runs on Render's free plan, so the
+first request after a period of inactivity can take up to a minute while the
+service wakes up.
 
 For local development, use `http://localhost:10000`.
 
@@ -42,8 +47,8 @@ For local development, use `http://localhost:10000`.
 
 ```bash
 # 1. Clone the public repository and navigate to directory
-git clone https://github.com/Manoj-0810/Profileforge.git
-cd profileforge
+git clone https://github.com/shreyachopra03-ux/Profileforge.git
+cd Profileforge
 
 # 2. Create virtual environment and install dependencies
 python -m venv .venv
@@ -90,7 +95,7 @@ docker run -p 10000:10000 --env-file .env profileforge
 ### 5.1 Lookup Request
 
 ```bash
-curl -X POST "https://profileforge-ysbd.onrender.com/v1/profile" \
+curl -X POST "https://profileforge-lg2f.onrender.com/v1/profile" \
   -H "Content-Type: application/json" \
   -H "X-API-Key: pf-eval-key-2026" \
   -d '{
@@ -306,7 +311,7 @@ python -m pytest tests/ -v --cov=app --cov-report=term-missing --cov-fail-under=
 
 ## 12. Engineering Decisions (ADR Summary)
 
-- **D01**: Direct HTTP Voyager API instead of browser automation to eliminate browser launch latency, reduce container footprint, and meet the core challenge requirement.
+- **D01**: Direct HTTP Voyager API instead of browser automation to eliminate browser launch latency, and reduce container footprint.
 - **D02**: FastAPI + Pydantic v2 for high async throughput, strict type safety, and automatic OpenAPI schema generation.
 - **D03**: Single-Flight request coalescing to eliminate thundering herd problems on concurrent cache misses.
 - **D04**: Dynamic DataQuality scoring calculated against supported provider sections.
@@ -320,7 +325,7 @@ The following is a **redacted** successful response captured from a live request
 
 ```bash
 # Request
-curl -X POST "https://profileforge-ysbd.onrender.com/v1/profile" \
+curl -X POST "https://<your-host>/v1/profile" \
   -H "Content-Type: application/json" \
   -H "X-API-Key: <YOUR_API_KEY>" \
   -d '{"url": "https://www.linkedin.com/in/satyanadella", "bypass_cache": false}'
@@ -368,4 +373,4 @@ curl -X POST "https://profileforge-ysbd.onrender.com/v1/profile" \
 }
 ```
 
-> **Note**: Fields containing `[REDACTED]` are replaced for security. The data returned is sourced live from LinkedIn's Rest.li Voyager API at the time of capture. Completeness score reflects the public information visible on Satya Nadella's profile to an authenticated viewer.
+> **Note**: This capture requires a deployment configured with `EXTRACTOR_TYPE=linkedin` and live session cookies; the hosted demo in section 2 runs in mock mode. Fields containing `[REDACTED]` are replaced for security. The data returned is sourced live from LinkedIn's Rest.li Voyager API at the time of capture. Completeness score reflects the public information visible on Satya Nadella's profile to an authenticated viewer.
