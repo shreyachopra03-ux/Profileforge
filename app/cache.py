@@ -73,9 +73,7 @@ class InMemoryCache(CacheBackend):
         ttl = ttl_seconds if ttl_seconds is not None else self.default_ttl_seconds
         now = datetime.now(UTC)
         expires_at = (
-            datetime.fromtimestamp(now.timestamp() + ttl, tz=UTC)
-            if ttl > 0
-            else None
+            datetime.fromtimestamp(now.timestamp() + ttl, tz=UTC) if ttl > 0 else None
         )
 
         async with self._lock:
