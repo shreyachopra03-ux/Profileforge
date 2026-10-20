@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Protocol, runtime_checkable
 
 from app.models import ProfileData
@@ -52,7 +52,7 @@ class InMemoryCache(CacheBackend):
         self.misses: int = 0
 
     async def get(self, key: str) -> ProfileData | None:
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         async with self._lock:
             entry = self._store.get(key)
             if entry is None:
@@ -71,9 +71,9 @@ class InMemoryCache(CacheBackend):
         self, key: str, value: ProfileData, ttl_seconds: int | None = None
     ) -> None:
         ttl = ttl_seconds if ttl_seconds is not None else self.default_ttl_seconds
-        now = datetime.now(timezone.utc)
+        now = datetime.now(UTC)
         expires_at = (
-            datetime.fromtimestamp(now.timestamp() + ttl, tz=timezone.utc)
+            datetime.fromtimestamp(now.timestamp() + ttl, tz=UTC)
             if ttl > 0
             else None
         )

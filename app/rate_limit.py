@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import Depends
 
@@ -22,7 +22,7 @@ class SlidingWindowRateLimiter:
         self._lock = asyncio.Lock()
 
     async def check(self, key: str) -> None:
-        now = datetime.now(timezone.utc).timestamp()
+        now = datetime.now(UTC).timestamp()
         cutoff = now - self.window_seconds
 
         async with self._lock:

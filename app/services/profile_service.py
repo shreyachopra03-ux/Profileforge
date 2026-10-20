@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import asyncio
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import structlog
 
@@ -102,7 +102,7 @@ class ProfileService:
                 )
                 return ProfileLookupResponse(
                     profile=cached_profile,
-                    fetched_at=datetime.now(timezone.utc),
+                    fetched_at=datetime.now(UTC),
                     cache_hit=True,
                     source=active_extractor.capabilities.provider_name,
                     request_id=request_id,
@@ -131,7 +131,7 @@ class ProfileService:
             dq = self._compute_data_quality(profile, active_extractor.capabilities)
             return ProfileLookupResponse(
                 profile=profile,
-                fetched_at=datetime.now(timezone.utc),
+                fetched_at=datetime.now(UTC),
                 cache_hit=True,
                 source=active_extractor.capabilities.provider_name,
                 request_id=request_id,
@@ -159,7 +159,7 @@ class ProfileService:
             dq = self._compute_data_quality(profile, active_extractor.capabilities)
             return ProfileLookupResponse(
                 profile=profile,
-                fetched_at=datetime.now(timezone.utc),
+                fetched_at=datetime.now(UTC),
                 cache_hit=False,
                 source=active_extractor.capabilities.provider_name,
                 request_id=request_id,

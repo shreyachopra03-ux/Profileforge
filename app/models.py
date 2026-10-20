@@ -6,7 +6,7 @@ service layer, and data normalizers.
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -236,7 +236,7 @@ class ProfileLookupResponse(BaseModel):
         description="Extracted and normalized profile information"
     )
     fetched_at: datetime = Field(
-        default_factory=lambda: datetime.now(timezone.utc),
+        default_factory=lambda: datetime.now(UTC),
         description="UTC timestamp of when data was extracted",
     )
     cache_hit: bool = Field(
